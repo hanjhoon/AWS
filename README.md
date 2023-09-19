@@ -150,12 +150,13 @@ Airflow에는 기능에 중요한 네 가지 핵심 구성 요소가 있습니�
             task_id = "is_weather_api_available",
             endpoint = "data/2.5/weather?q=Stockholm&appid=<API Key>",
             http_conn_id='weather_map_api')
-      
-      ```
   
-      * **Task 2** -  이 작업은 날씨 API를 호출하고 JSON 형식의 데이터를 가져오기 위해 GET 메서드를 호출합니다. 텍스트로 변환하기 위해 람다 함수를 사용합니다.
+      ```
 
-    ```Python
+
+     * **Task 2** -  이 작업은 날씨 API를 호출하고 JSON 형식의 데이터를 가져오기 위해 GET 메서드를 호출합니다. 텍스트로 변환하기 위해 람다 함수를 사용합니다.
+
+      ```Python
       extract_weather_data = SimpleHttpOperator(
             task_id = "extract_weather_data",
             http_conn_id="weather_map_api",
@@ -165,9 +166,9 @@ Airflow에는 기능에 중요한 네 가지 핵심 구성 요소가 있습니�
             log_response = True,
         )
       ```
-      * **Task 3** - 이 작업은 JSON 형식을 CSV 파일로 변환하고 AWS S3 버킷에 저장하는 Python 함수를 호출합니다. 원하는 DAG를 실행할 때 스케줄 간격을 정의할 수 있습니다.
+     * **Task 3** - 이 작업은 JSON 형식을 CSV 파일로 변환하고 AWS S3 버킷에 저장하는 Python 함수를 호출합니다. 원하는 DAG를 실행할 때 스케줄 간격을 정의할 수 있습니다.
 
-    ```Python
+      ```Python
       transform_load_weather_data = PythonOperator(
             task_id = "transform_load_weather_data",
             python_callable= transform_load_data,
